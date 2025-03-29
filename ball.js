@@ -26,7 +26,7 @@ function circle(x, y, radius = 5) {
 
 function draw() {
   context.fillStyle = color;
-  circle(100, 100);
+  circle(x, y);
 }
 
 function move() {
@@ -42,4 +42,17 @@ function drawBorder() {
 
 drawBorder() 
 
-draw();
+//draw();
+
+function go() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    draw();
+    move();
+    drawBorder() 
+}
+
+function start(){
+    setInterval(go, 30);
+}
+
+start();
