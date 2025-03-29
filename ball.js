@@ -31,8 +31,6 @@ class Ball {
   }
 }
 
-
-
 function drawBorder() {
   context.strokeStyle = "grey";
   context.lineWidth = 3;
@@ -42,19 +40,28 @@ function drawBorder() {
 drawBorder();
 
 //draw();
-const ball = new Ball(context);
+
+//const ball = new Ball(context);
+
+const balls = [];
+for (let i = 0; i < n; i++) {
+  balls[i] = new Ball(context);
+}
 
 function go() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  ball.draw();
-  ball.move();
+  //console.log(balls.length);
+  //   ball.draw();
+  //   ball.move();
+  for (let i = 0; i < balls.length; i++) {
+    balls[i].draw();
+    balls[i].move();
+  }
   drawBorder();
 }
 
 function start() {
   setInterval(go, 30);
 }
-
-
 
 start();
