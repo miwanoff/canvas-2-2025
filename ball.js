@@ -1,17 +1,19 @@
 const canvas = document.getElementById("canvas");
 const n = 10;
+let x = 100;
+let y = 100;
 
 context = canvas.getContext("2d");
 let width = canvas.width;
 let height = canvas.height;
-console.log(width, height);
+// console.log(width, height);
 
 let xSpeed = Math.floor(Math.random() * 10);
 let ySpeed = Math.floor(Math.random() * 10);
 
 let color = "blue";
 
-console.log(xSpeed, ySpeed);
+// console.log(xSpeed, ySpeed);
 
 function circle(x, y, radius = 5) {
   context.beginPath();
@@ -19,6 +21,25 @@ function circle(x, y, radius = 5) {
   context.fill();
 }
 
-circle(100, 100);
+// circle(100, 100);
+// circle(150, 200);
 
-circle(150, 200);
+function draw() {
+  context.fillStyle = color;
+  circle(100, 100);
+}
+
+function move() {
+  x += xSpeed;
+  y += ySpeed;
+}
+
+function drawBorder() {
+  context.strokeStyle = "grey";
+  context.lineWidth = 3;
+  context.strokeRect(0, 0, width, height);
+}
+
+drawBorder() 
+
+draw();
