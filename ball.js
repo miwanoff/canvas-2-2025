@@ -1,38 +1,37 @@
 const canvas = document.getElementById("canvas");
-const n = 10;
-let x = 100;
-let y = 100;
-
 context = canvas.getContext("2d");
 let width = canvas.width;
 let height = canvas.height;
-// console.log(width, height);
 
-let xSpeed = Math.floor(Math.random() * 10);
-let ySpeed = Math.floor(Math.random() * 10);
+const n = 10;
 
-let color = "blue";
+class Ball {
+  constructor(context, x = 100, y = 100) {
+    this.x = x;
+    this.y = x;
+    this.xSpeed = Math.floor(Math.random() * 10);
+    this.ySpeed = Math.floor(Math.random() * 10);
+    this.color = "blue";
+  }
 
-// console.log(xSpeed, ySpeed);
+  circle(x, y, radius = 5) {
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2, true);
+    context.fill();
+  }
 
-function circle(x, y, radius = 5) {
-  context.beginPath();
-  context.arc(x, y, radius, 0, Math.PI * 2, true);
-  context.fill();
+  draw() {
+    context.fillStyle = this.color;
+    this.circle(this.x, this.y);
+  }
+
+  move() {
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+  }
 }
 
-// circle(100, 100);
-// circle(150, 200);
 
-function draw() {
-  context.fillStyle = color;
-  circle(x, y);
-}
-
-function move() {
-  x += xSpeed;
-  y += ySpeed;
-}
 
 function drawBorder() {
   context.strokeStyle = "grey";
@@ -40,19 +39,22 @@ function drawBorder() {
   context.strokeRect(0, 0, width, height);
 }
 
-drawBorder() 
+drawBorder();
 
 //draw();
+const ball = new Ball(context);
 
 function go() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    draw();
-    move();
-    drawBorder() 
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  ball.draw();
+  ball.move();
+  drawBorder();
 }
 
-function start(){
-    setInterval(go, 30);
+function start() {
+  setInterval(go, 30);
 }
+
+
 
 start();
