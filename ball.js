@@ -29,6 +29,15 @@ class Ball {
     this.x += this.xSpeed;
     this.y += this.ySpeed;
   }
+
+  checkCollision() {
+    if (this.x <= 0 || this.x >= width) {
+      this.xSpeed = -this.xSpeed;
+    }
+    if (this.y <= 0 || this.y >= height) {
+        this.ySpeed = -this.ySpeed;
+      }
+  }
 }
 
 function drawBorder() {
@@ -56,6 +65,7 @@ function go() {
   for (let i = 0; i < balls.length; i++) {
     balls[i].draw();
     balls[i].move();
+    balls[i].checkCollision();
   }
   drawBorder();
 }
