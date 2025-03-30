@@ -35,18 +35,44 @@ class Ball {
       this.xSpeed = -this.xSpeed;
     }
     if (this.y <= 0 || this.y >= height) {
-        this.ySpeed = -this.ySpeed;
-      }
+      this.ySpeed = -this.ySpeed;
+    }
   }
 }
 
-function drawBorder() {
-  context.strokeStyle = "grey";
-  context.lineWidth = 3;
-  context.strokeRect(0, 0, width, height);
+class BallsGame {
+  constructor(balls, canvas) {
+    this.context = canvas.getContext("2d");
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.balls = balls;
+  }
+
+  drawBorder() {
+    this.context.strokeStyle = "grey";
+    this.context.lineWidth = 3;
+    this.context.strokeRect(0, 0, this.width, this.height);
+  }
+
+  go() {
+    this.context.clearRect(0, 0, this.width, this.height);
+    //console.log(balls.length);
+    //   ball.draw();
+    //   ball.move();
+    for (let i = 0; i < this.balls.length; i++) {
+      this.balls[i].draw();
+      this.balls[i].move();
+      this.balls[i].checkCollision();
+    }
+    this.drawBorder();
+  }
+
+  start() {
+    setInterval(this.go.bind(this), 30);
+  }
 }
 
-drawBorder();
+//drawBorder();
 
 //draw();
 
@@ -57,21 +83,9 @@ for (let i = 0; i < n; i++) {
   balls[i] = new Ball(context);
 }
 
-function go() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  //console.log(balls.length);
-  //   ball.draw();
-  //   ball.move();
-  for (let i = 0; i < balls.length; i++) {
-    balls[i].draw();
-    balls[i].move();
-    balls[i].checkCollision();
-  }
-  drawBorder();
-}
+//start();
 
-function start() {
-  setInterval(go, 30);
-}
+let ballsGame = new BallsGame(balls, canvas);
+ballsGame.drawBorder();
 
-start();
+ballsGame.start();
