@@ -1,27 +1,30 @@
 const canvas = document.getElementById("canvas");
-context = canvas.getContext("2d");
-let width = canvas.width;
-let height = canvas.height;
+// context = canvas.getContext("2d");
+// let width = canvas.width;
+// let height = canvas.height;
 
 const n = 10;
 
 class Ball {
-  constructor(context, x = 100, y = 100) {
+  constructor(canvas, x = 100, y = 100) {
+    this.context = canvas.getContext("2d");
     this.x = x;
     this.y = x;
+    this.width = canvas.width;
+    this.height = canvas.height;
     this.xSpeed = Math.floor(Math.random() * 10);
     this.ySpeed = Math.floor(Math.random() * 10);
     this.color = "blue";
   }
 
   circle(x, y, radius = 5) {
-    context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2, true);
-    context.fill();
+    this.context.beginPath();
+    this.context.arc(x, y, radius, 0, Math.PI * 2, true);
+    this.context.fill();
   }
 
   draw() {
-    context.fillStyle = this.color;
+    this.context.fillStyle = this.color;
     this.circle(this.x, this.y);
   }
 
@@ -31,10 +34,10 @@ class Ball {
   }
 
   checkCollision() {
-    if (this.x <= 0 || this.x >= width) {
+    if (this.x <= 0 || this.x >= this.width) {
       this.xSpeed = -this.xSpeed;
     }
-    if (this.y <= 0 || this.y >= height) {
+    if (this.y <= 0 || this.y >= this.height) {
       this.ySpeed = -this.ySpeed;
     }
   }
@@ -80,7 +83,7 @@ class BallsGame {
 
 const balls = [];
 for (let i = 0; i < n; i++) {
-  balls[i] = new Ball(context);
+  balls[i] = new Ball(canvas);
 }
 
 //start();
